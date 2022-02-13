@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.ivanvega.mireceivera">
+
+    <!-- Los permisos peligrosos deben validarse en tiempo de ejecucion -->
+    <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MiReceiverA">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:exported="true"
+            android:name=".receivers.MiBroadcastReceiver"
+            android:permission="android.permission.BROADCAST_SMS"
+            >
+
+            <!--Registro de receptores a nivel de manifesto -->
+            <!-- Lista de receptores unicos a nivel de manifesto en enlace de abajo -->
+            <!--  https://developer.android.com/guide/components/broadcast-exceptions  -->
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" ></action>
+                <action  android:name="android.intent.action.INPUT_METHOD_CHANGED"></action>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"></action>
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
